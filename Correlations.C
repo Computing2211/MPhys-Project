@@ -1,8 +1,10 @@
+#include "parameters.h"
+
 double inputfunc(const double *input)
 {
-  TString particle = "Jpsi"; //Jpsi or Psi2S
-  TString prod = "P"; //P or NP
-  TString rapidity = "2"; //1,2,3
+  TString particle = PARTICLE;
+  TString prod = PROD; //P or NP
+  TString rapidity = RAPIDITY; //1,2,3
   TString table;
 
   if (particle == "Jpsi"&& prod == "P") {
