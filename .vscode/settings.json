@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "Analysis.C": "cpp"
+        "Analysis.C": "cpp",
+        "Chi2lambda.C": "cpp",
+        "Corrections.C": "cpp"
     }
 }
