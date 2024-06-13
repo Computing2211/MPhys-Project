@@ -3,6 +3,7 @@
         "Analysis.C": "cpp",
         "Chi2lambda.C": "cpp",
         "Corrections.C": "cpp",
-        "Correlations.C": "cpp"
+        "Correlations.C": "cpp",
+        "Functions.C": "cpp"
     }
 }
