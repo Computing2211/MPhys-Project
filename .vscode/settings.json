@@ -2,6 +2,7 @@
     "files.associations": {
         "Analysis.C": "cpp",
         "Chi2lambda.C": "cpp",
-        "Corrections.C": "cpp"
+        "Corrections.C": "cpp",
+        "Correlations.C": "cpp"
     }
 }

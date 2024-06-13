@@ -3,7 +3,6 @@ double inputfunc(const double *input)
   TString particle = "Jpsi"; //Jpsi or Psi2S
   TString prod = "P"; //P or NP
   TString rapidity = "2"; //1,2,3
-  //double lambda = 0.55; //between -1 and 1, 0 doesn't work due to /0 errors
   TString table;
 
   if (particle == "Jpsi"&& prod == "P") {
@@ -163,5 +162,7 @@ int Correlations(const char * minName = "Minuit2",
       Error("NumericalMinimization","fail to converge");
    }*/
 
-   return minimum->MinValue();
+   //return minimum->MinValue();
+
+   return xs[3];
 }
