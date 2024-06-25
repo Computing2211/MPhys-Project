@@ -5,8 +5,8 @@ double inputfunc(const double *input)
   TString particle = PARTICLE;
   TString prod = PROD; //P or NP
   TString rapidity = RAPIDITY; //1,2,3
-  int low = LOW;
-  int high = HIGH;
+  const int low = LOW;
+  const int high = HIGH;
   TString table;
 
   if (particle == "Jpsi"&& prod == "P") {
@@ -33,19 +33,19 @@ double inputfunc(const double *input)
   const double en = input[2];
   const double lambda = input[3];
   //const double c = input[4];
-  const int n = 19;
+  const int binRange = Data->FindBin(high) - Data->FindBin(low);
+  const int n = 19;//(Data->FindBin(high))-(Data->FindBin(low)); //number of bins between low and high
 
   ROOT::Math::SVector<double,n> difference;
   ROOT::Math::SMatrix<double,n> staterror;
   ROOT::Math::SMatrix<double,n> syserror;
 
-
   int counter = 0;
-  for (size_t i = 0; i < 34; i++) {
+  for (size_t i = 0; i < Data->GetNbinsX(); i++) {
     if (Data->GetBinCenter(i+1)<high && Data->GetBinCenter(i+1)>low) {
       double x = Data->GetBinCenter(i+1);
       double y = Data->GetBinContent(i+1)*correction(lambda, i+1);
-      difference[counter] = y-a*pow((1+(x/b)),en)*(1+0*log(x/60));
+      difference[counter] = y-a*pow((1+(x/b)),en)*(1+0*log(x/60)); //data value subtract the fit equation at the centre of the bin
 
       staterror(counter,counter) = error1->GetBinContent(i+1)*correction(lambda, i+1);
       syserror(counter,counter) = error2->GetBinContent(i+1)*correction(lambda, i+1);
@@ -55,7 +55,7 @@ double inputfunc(const double *input)
 
   ROOT::Math::SMatrix<double,n> correlation;
 
-  double corr = 0.5;
+  double corr = 0.5; //consecutive bin correlation
   //Creates a correlation matrix with some bin to bin correlation
   for (size_t i = 0; i < n; i++) {
     for (size_t j = 0; j < n; j++) {
@@ -73,24 +73,17 @@ double inputfunc(const double *input)
         correlation(i,j) = 1;
       }
       //if (i*j == 9*10) {
-        //correlation(i,j) = 0;
+        //correlation(i,j) = 0; 
       //}
     }
   }
 
-  /*ROOT::Math::SVector<double,n> p (x,n);
-  ROOT::Math::SVector<double,n> expected = a*p+b;
-  ROOT::Math::SVector<double,n> sigma (y,n);
-  ROOT::Math::SMatrix<double,n> m(ey,n*n);
-  ROOT::Math::SMatrix<double,n> corr(rho,n*n);*/
   ROOT::Math::SMatrix<double,n> E = syserror*syserror + staterror*correlation*staterror;
+
   //  Invert a NxN matrix. The inverted matrix replace the existing one and returns if the result is successful
   bool ret = E.Invert();
-  //bool out = correlation.Invert();
-  //cout<<ROOT::Math::Similarity(difference,E)<<endl;
 
-  //cout<<particle<<prod<<rapidity<<endl;
-  return ROOT::Math::Similarity(difference,E);
+  return ROOT::Math::Similarity(difference,E); //The chi^2 value for this data and this fit. This is the value to be minimised
 
 }
 
@@ -168,5 +161,5 @@ int Correlations(const char * minName = "Minuit2",
 
    //return minimum->MinValue();
 
-   return xs[3];
+   return xs[3]; //returns the minimum chi^2 value
 }
