@@ -4,6 +4,11 @@
         "Chi2lambda.C": "cpp",
         "Corrections.C": "cpp",
         "Correlations.C": "cpp",
-        "Functions.C": "cpp"
+        "Functions.C": "cpp",
+        "Fit_Omit.C": "cpp",
+        "Graph_Data.C": "cpp",
+        "Graphing.C": "cpp",
+        "Sandbox.C": "cpp",
+        "Specific_Corrections.C": "cpp"
     }
 }
