@@ -5,6 +5,8 @@ double inputfunc(const double *input)
   TString particle = PARTICLE;
   TString prod = PROD; //P or NP
   TString rapidity = RAPIDITY; //1,2,3
+  int low = LOW;
+  int high = HIGH;
   TString table;
 
   if (particle == "Jpsi"&& prod == "P") {
@@ -40,7 +42,7 @@ double inputfunc(const double *input)
 
   int counter = 0;
   for (size_t i = 0; i < 34; i++) {
-    if (Data->GetBinCenter(i+1)<200 && Data->GetBinCenter(i+1)>20) {
+    if (Data->GetBinCenter(i+1)<high && Data->GetBinCenter(i+1)>low) {
       double x = Data->GetBinCenter(i+1);
       double y = Data->GetBinContent(i+1)*correction(lambda, i+1);
       difference[counter] = y-a*pow((1+(x/b)),en)*(1+0*log(x/60));

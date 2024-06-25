@@ -10,12 +10,12 @@
 #include "parameters.h"
 
 void Analysis(){
-  TString particle = PARTICLE; //Jpsi or Psi2S
-  TString prod = "NP"; //P or NP
-  TString rapidity = "1"; //1,2,3
+  TString particle = PARTICLE; 
+  TString prod = PROD; 
+  TString rapidity = RAPIDITY; 
   double lambda = -0.55; //between -1 and 1, 0 doesn't work due to  div 0 errors
-  int low = 20; //no lower than 8
-  int high = 200; //no higher than 360
+  int low = LOW; 
+  int high = HIGH; 
 
   //Graph_Data(particle, prod, rapidity, low, high);
   //Graphs the raw data for the particle in question
