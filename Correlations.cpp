@@ -1,4 +1,5 @@
 #include "parameters.h"
+#include "binCount.h"
 
 double inputfunc(const double *input)
 {
@@ -33,8 +34,7 @@ double inputfunc(const double *input)
   const double en = input[2];
   const double lambda = input[3];
   //const double c = input[4];
-  const int binRange = Data->FindBin(high) - Data->FindBin(low);
-  const int n = 19;//(Data->FindBin(high))-(Data->FindBin(low)); //number of bins between low and high
+  const int n = BINCOUNT;//(Data->FindBin(high))-(Data->FindBin(low)); //number of bins between low and high
 
   ROOT::Math::SVector<double,n> difference;
   ROOT::Math::SMatrix<double,n> staterror;
@@ -87,7 +87,7 @@ double inputfunc(const double *input)
 
 }
 
-int Correlations(const char * minName = "Minuit2",
+double Correlations(const char * minName = "Minuit2",
                           const char *algoName = "Minos" ,
                           int randomSeed = -1)
 {

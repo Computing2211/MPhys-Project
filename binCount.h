@@ -1,0 +1,1 @@
+#define BINCOUNT 19 //range of bins from histogram
