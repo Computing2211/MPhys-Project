@@ -13,7 +13,7 @@ void Analysis(){
   TString particle = PARTICLE; 
   TString prod = PROD; 
   TString rapidity = RAPIDITY; 
-  double lambda = -0.55; //between -1 and 1, 0 doesn't work due to  div 0 errors
+  double lambda = Correlations(); //between -1 and 1, 0 doesn't work due to  div 0 errors
   int low = LOW; 
   int high = HIGH; 
 
@@ -40,7 +40,7 @@ void Analysis(){
 
   //CorrectedPull(particle, prod, rapidity, lambda, low, high);
 
-  //CorrectedAll(particle, prod, rapidity, lambda, low, high); //Has been tweaked to produce desired graphs for report
+  CorrectedAll(particle, prod, rapidity, lambda, low, high); //Has been tweaked to produce desired graphs for report
 
   //Chi2graph(particle, prod, rapidity, low, high); //Scans all lambda to find minimum. Also graphs
 
@@ -50,5 +50,5 @@ void Analysis(){
 
   //Specific_Corrections(particle, prod, rapidity, lambda, low, high, true);
 
-  Correlations(); //Determines values including errors with correlation possibilities. No graphs.
+  //Correlations(); //Determines values including errors with correlation possibilities. No graphs.
 }

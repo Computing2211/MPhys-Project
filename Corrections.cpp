@@ -398,23 +398,23 @@ TString polarisation = Form("lambda = %g", lambda);
     Pull->GetXaxis()->SetRangeUser(low,high);
 
 //Create visual graph
-    TCanvas *c1 = new TCanvas("c1","Corrected Data",0,0,500,350);
+    TCanvas *c1 = new TCanvas("c1","Corrected Data",0,0,600,800);
 
-    TPaveLabel *title = new TPaveLabel(0.15,0.92,0.9,0.98, "After");
+    TPaveLabel *title = new TPaveLabel(0.15,0.92,0.9,0.98, prod+" "+particle+" at rapidity slice number "+ rapidity+" ("+polarisation+")");
    //title->SetFillColor(16);
    //title->SetTextFont(42);
    title->Draw();
 
-    //TPad *pad3 = new TPad("pad3","pad3",0.05,0.02,1,0.33);
-   TPad *pad2 = new TPad("pad2","pad2",0,0.02,1,0.52);
-   TPad *pad1 = new TPad("pad1","pad1",0,0.49,1,0.91);
-    pad1->Draw(); pad2->Draw(); //pad3->Draw();
+    TPad *pad3 = new TPad("pad3","pad3",0.03,0.02,1,0.33);
+   TPad *pad2 = new TPad("pad2","pad2",0.03,0.33,1,0.62);
+   TPad *pad1 = new TPad("pad1","pad1",0.03,0.62,1,0.91);
+    pad1->Draw(); pad2->Draw(); pad3->Draw();
 
     pad2->cd();
     pad2->SetLogx();
     gStyle->SetOptFit(0);
     Ratio->GetYaxis()->SetTitle("Data to fit ratio");
-    //Ratio->GetXaxis()->SetTitle("");
+    Ratio->GetXaxis()->SetTitle("");
     Ratio->GetYaxis()->SetLabelSize(0.04);
     Ratio->GetXaxis()->SetLabelSize(0.05);
     Ratio->GetYaxis()->SetTitleSize(0.06);
@@ -423,7 +423,7 @@ TString polarisation = Form("lambda = %g", lambda);
     TF1 *constfunc1 = new TF1("constfunc1", constantratio, low, high, 0);
     constfunc1->Draw("same");
 
-    /*pad3->cd();
+    pad3->cd();
     pad3->SetLogx();
     gStyle->SetOptFit(0);
     Pull->GetYaxis()->SetTitle("Pull Distribution");
@@ -439,7 +439,7 @@ TString polarisation = Form("lambda = %g", lambda);
     line1->Draw("");
     auto line2 = new TLine(low, -1, high, -1);
     line2->SetLineColor(kBlue);
-    line2->Draw("");*/
+    line2->Draw("");
 
     pad1->cd();
     pad1->SetLogx();
@@ -449,11 +449,12 @@ TString polarisation = Form("lambda = %g", lambda);
     Data->GetYaxis()->SetTitleSize(0.06);
     Data->GetXaxis()->SetLabelSize(0.001);
     Data->GetXaxis()->SetTitle("");
-    gStyle->SetOptFit(0);
+    gStyle->SetOptFit(1111); // Set 0 for no data, 1111 for all data
     gStyle->SetOptStat("");
     Data->GetFunction("func")->ResetBit(1<<9);
     Data-> DrawCopy("E1 X");
 }
+
 void CorrectedAll_Omit(TString particle, TString prod, TString rapidity, double lambda, int low, int high) {
 
     TFile f = TFile("HEPData-ins2705040-v1-root.root");
